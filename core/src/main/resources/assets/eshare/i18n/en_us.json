@@ -4,6 +4,10 @@
             "name": "e.share Uploader",
             "enabled": {
                 "name": "Enabled"
+            },
+            "token": {
+                "name": "e.share Token",
+                "description": "You can find your API Key at §bhttps://share.ebio.gg/dashboard"
             }
         },
         "messages": {

@@ -16,7 +16,7 @@ public class EShareCommand extends Command {
 
     private final EShareAddon addon;
 
-    protected EShareCommand(EShareAddon addon) {
+    public EShareCommand(EShareAddon addon) {
         super("eshare");
         this.addon = addon;
     }

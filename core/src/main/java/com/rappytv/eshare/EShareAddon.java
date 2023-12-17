@@ -1,5 +1,7 @@
 package com.rappytv.eshare;
 
+import com.rappytv.eshare.command.EShareCommand;
+import com.rappytv.eshare.listener.ScreenshotListener;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
@@ -15,6 +17,8 @@ public class EShareAddon extends LabyAddon<EShareConfig> {
     @Override
     protected void enable() {
         registerSettingCategory();
+        registerCommand(new EShareCommand(this));
+        registerListener(new ScreenshotListener());
     }
 
     @Override

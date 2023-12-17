@@ -31,12 +31,12 @@ public class EShareCommand extends Command {
             displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.file", NamedTextColor.RED)));
             return true;
         }
-        File file = new File("%appdata%/screenshots/" + args[0]);
+        File file = new File(System.getProperty("user.dir") + "/screenshots/" + args[0]);
         if(!file.exists()) {
             displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.file", NamedTextColor.RED)));
             return true;
         }
-        displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.uploading", NamedTextColor.RED)));
+        displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.uploading", NamedTextColor.GRAY)));
         UploadRequest request = new UploadRequest(file, addon.configuration().token());
         request.sendAsyncRequest().thenAccept((response) -> {
             if(request.isSuccessful()) {

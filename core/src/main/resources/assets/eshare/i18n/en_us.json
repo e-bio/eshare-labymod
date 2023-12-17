@@ -5,6 +5,19 @@
             "enabled": {
                 "name": "Enabled"
             }
+        },
+        "messages": {
+            "noToken": "Please put your e.share token into the addon config!",
+            "file": "File not found!",
+            "upload": "Click here to upload the screenshot to e.share!",
+            "uploading": "Uploading screenshot..."
+        },
+        "upload": {
+            "hover": "Clickable",
+            "copy": "[COPY URL]",
+            "open": "[OPEN IN BROWSER]",
+            "emptyError": "Empty error!",
+            "uploaded": "Screenshot uploaded! %s %s"
         }
     }
 }

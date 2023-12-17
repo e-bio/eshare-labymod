@@ -1,7 +1,6 @@
 package com.rappytv.eshare.api;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.http.HttpRequest.BodyPublisher;
@@ -28,10 +27,6 @@ public class MultipartData {
 
         private Builder() {
             this.boundary = new BigInteger(128, new Random()).toString();
-        }
-
-        public Builder addFile(File file) {
-            return this.addFile(file.getName(), file.toPath(), "image/png");
         }
 
         public Builder addFile(String name, Path path, String mimeType) {

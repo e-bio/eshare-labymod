@@ -28,7 +28,7 @@ public class UploadRequest {
         CompletableFuture<Void> future = new CompletableFuture<>();
 
         try {
-            MultipartData data = MultipartData.newBuilder().addFile(file).build();
+            MultipartData data = MultipartData.newBuilder().addFile("file", file.toPath(), "image/png").build();
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://api.ebio.gg/api/share/upload"))
                 .header("Content-Type", data.getContentType())

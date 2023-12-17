@@ -6,10 +6,12 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.Style;
+import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.misc.WriteScreenshotEvent;
 
 public class ScreenshotListener {
 
+    @Subscribe
     public void onScreenshot(WriteScreenshotEvent event) {
         Component component = EShareAddon.prefix.copy().append(
             Component.translatable(

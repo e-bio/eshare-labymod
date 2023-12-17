@@ -7,7 +7,9 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.Style;
 import net.labymod.api.client.component.format.TextDecoration;
+import net.labymod.api.models.addon.annotation.AddonMain;
 
+@AddonMain
 public class EShareAddon extends LabyAddon<EShareConfig> {
 
     public static final Component prefix = Component.empty()

@@ -1,7 +1,7 @@
-rootProject.name = "labymod4-addon-template"
+rootProject.name = "eshare"
 
 pluginManagement {
-    val labyGradlePluginVersion = "0.3.28"
+    val labyGradlePluginVersion = "0.3.40"
     plugins {
         id("net.labymod.gradle") version (labyGradlePluginVersion)
     }

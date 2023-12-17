@@ -1,0 +1,10 @@
+{
+    "eshare": {
+        "settings": {
+            "name": "e.share Uploader",
+            "enabled": {
+                "name": "Enabled"
+            }
+        }
+    }
+}

@@ -42,20 +42,20 @@ public class EShareCommand extends Command {
             if(request.isSuccessful()) {
                 Component copy = Component.translatable(
                     "eshare.upload.copy",
-                    Style.builder()
+                    Style.empty()
                         .color(NamedTextColor.AQUA)
                         .decorate(TextDecoration.BOLD)
                         .hoverEvent(
-                            HoverEvent.showText(Component.translatable("eshare.upload.hover").color(NamedTextColor.GREEN))).build()
+                            HoverEvent.showText(Component.translatable("eshare.upload.hover").color(NamedTextColor.GREEN)))
                         .clickEvent(ClickEvent.copyToClipboard(request.getUploadLink()))
                 );
                 Component open = Component.translatable(
                     "eshare.upload.open",
-                    Style.builder()
+                    Style.empty()
                         .color(NamedTextColor.RED)
                         .decorate(TextDecoration.BOLD)
                         .hoverEvent(
-                            HoverEvent.showText(Component.translatable("eshare.upload.hover").color(NamedTextColor.GREEN))).build()
+                            HoverEvent.showText(Component.translatable("eshare.upload.hover").color(NamedTextColor.GREEN)))
                         .clickEvent(ClickEvent.openUrl(request.getUploadLink()))
                 );
                 Component component = Component.translatable(

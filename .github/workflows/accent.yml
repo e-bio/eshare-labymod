@@ -6,7 +6,6 @@ on:
     workflow_dispatch:
 
 env:
-    ACCENT_API_URL: ${{ env.ACCENT_URL }}
     ACCENT_API_KEY: ${{ secrets.ACCENT_TOKEN }}
 
 jobs:

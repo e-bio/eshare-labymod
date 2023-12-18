@@ -1,4 +1,5 @@
 {
+    "apiUrl": "https://translate.ebio.gg",
     "files": [
         {
             "namePattern": "parentDirectory",

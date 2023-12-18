@@ -2,7 +2,8 @@ name: Accent sync
 
 on:
     schedule:
-        - cron: "*/10 * * * *"
+        - cron: "0 */12 * * *"
+    workflow_dispatch:
 
 env:
     ACCENT_API_URL: ${{ ACCENT_URL }}

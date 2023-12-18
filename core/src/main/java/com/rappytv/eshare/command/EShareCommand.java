@@ -11,10 +11,13 @@ import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.Style;
 import net.labymod.api.client.component.format.TextDecoration;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EShareCommand extends Command {
 
     private final EShareAddon addon;
+    private final Set<String> uploads = new HashSet<>();
 
     public EShareCommand(EShareAddon addon) {
         super("eshare");
@@ -36,6 +39,30 @@ public class EShareCommand extends Command {
             displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.file", NamedTextColor.RED)));
             return true;
         }
+        if(uploads.contains(file.getName()) && addon.configuration().doubleUploads()) {
+            if(args.length < 2 || !args[1].equalsIgnoreCase("force")) {
+                displayMessage(EShareAddon.prefix.copy().append(
+                    Component.translatable(
+                        "eshare.messages.alreadyUploaded",
+                        NamedTextColor.RED,
+                        Component.translatable(
+                            "eshare.messages.uploadAnyway",
+                            Style.empty()
+                                .color(NamedTextColor.AQUA)
+                                .decorate(TextDecoration.UNDERLINED)
+                                .hoverEvent(HoverEvent.showText(Component.translatable("eshare.upload.hover", NamedTextColor.GREEN)))
+                                .clickEvent(ClickEvent.runCommand(String.format(
+                                    "/%s %s force",
+                                    prefix,
+                                    file.getName()
+                                )))
+                        )
+                    ))
+                );
+                return true;
+            }
+        }
+        uploads.add(file.getName());
         displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.uploading", NamedTextColor.GRAY)));
         UploadRequest request = new UploadRequest(file, addon.configuration().token());
         request.sendAsyncRequest().thenAccept((response) -> {

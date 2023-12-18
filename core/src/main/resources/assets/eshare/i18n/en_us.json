@@ -5,6 +5,10 @@
             "enabled": {
                 "name": "Enabled"
             },
+            "doubleUploads": {
+                "name": "Ask before double uploads",
+                "description": "When this option is enabled and you click on the \"Upload\" button on an already uploaded screenshot, you get asked if you want to upload the screenshot again."
+            },
             "token": {
                 "name": "e.share Token",
                 "description": "You can find your API Key at §bhttps://share.ebio.gg/dashboard"
@@ -13,6 +17,8 @@
         "messages": {
             "noToken": "Please put your e.share token into the addon config!",
             "file": "File not found!",
+            "alreadyUploaded": "You've already uploaded this screenshot! %s",
+            "uploadAnyway": "Upload it anyway?",
             "upload": "Click here to upload the screenshot to e.share!",
             "uploading": "Uploading screenshot..."
         },

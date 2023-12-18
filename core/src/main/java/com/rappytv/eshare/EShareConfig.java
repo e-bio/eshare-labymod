@@ -13,6 +13,8 @@ public class EShareConfig extends AddonConfig {
     @SpriteSlot(size = 32)
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+    @SwitchSetting
+    private final ConfigProperty<Boolean> doubleUploads = new ConfigProperty<>(true);
     @SpriteSlot(size = 32, x = 1)
     @TextFieldSetting
     private final ConfigProperty<String> token = new ConfigProperty<>("");
@@ -20,6 +22,9 @@ public class EShareConfig extends AddonConfig {
     @Override
     public ConfigProperty<Boolean> enabled() {
         return enabled;
+    }
+    public boolean doubleUploads() {
+        return doubleUploads.get();
     }
     public String token() {
         return token.get();

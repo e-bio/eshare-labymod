@@ -9,9 +9,30 @@
                 "name": "Ask before double uploads",
                 "description": "When this option is enabled and you click on the \"Upload\" button on an already uploaded screenshot, you get asked if you want to upload the screenshot again."
             },
+            "openRegisterPage": {
+                "name": "Register on e.share",
+                "description": "Signup, configure and grab your API token on https://share.ebio.gg/dashboard",
+                "text": "§7§oRegister"
+            },
             "token": {
                 "name": "e.share Token",
                 "description": "You can find your API Key at §bhttps://share.ebio.gg/dashboard"
+            },
+            "checkAccount": {
+                "name": "Check account limit",
+                "description": "Check if your token is valid & your remaining screenshots for today...",
+                "text": "§7§oCheck"
+            },
+            "header": {
+                "register": {
+                    "name": "§7§oIn order to use this addon, you need to register and copy your API token."
+                },
+                "token": {
+                    "name": "§7§oYou can find your \"e.share Token\" on https://share.ebio.gg/dashboard"
+                },
+                "check": {
+                    "name": "\n"
+                }
             }
         },
         "messages": {

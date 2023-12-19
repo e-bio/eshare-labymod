@@ -42,17 +42,17 @@
             "uploadAnyway": "Upload it anyway?",
             "upload": "Click here to upload the screenshot to e.share!",
             "uploading": "Uploading screenshot...",
-            "status": "You have used %s out of %s uploads."
+            "status": "You have used %s out of %s uploads.",
+            "success": "Uploaded!",
+            "error": "Error!",
+            "error_description": "Something went wrong. Contact help@ebio.gg"
         },
         "upload": {
             "hover": "Clickable",
             "copy": "[COPY URL]",
             "open": "[OPEN IN BROWSER]",
             "emptyError": "Empty error!",
-            "uploaded": "Screenshot uploaded! %s %s",
-            "success": "Uploaded!",
-            "error": "Error!",
-            "error_description": "Something went wrong. Contact help@ebio.gg"
+            "uploaded": "Screenshot uploaded! %s %s"
         }
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.TranslatableComponent;
 import net.labymod.api.notification.Notification;
 import net.labymod.api.util.I18n;
 import java.io.File;
@@ -45,7 +46,9 @@ public class UploadRequest {
                 .thenAccept((response) -> {
                     successful = response.statusCode() >= 200 && response.statusCode() <= 299;
                     if(successful) {
-                        String used = "NaN", max = "NaN", finalString;
+                        String used = "NaN";
+                        String max = "NaN";
+                        TranslatableComponent finalString;
                         try {
                             JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
@@ -57,11 +60,11 @@ public class UploadRequest {
                             uploadLink = "";
                         }
 
-                        finalString = "You have used " + used + " of " + max + " uploads.";
+                        finalString = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
                         Laby.references().notificationController().push(
                             Notification.builder()
-                                .title(Component.text("Uploaded!"))
-                                .text(Component.text(finalString))
+                                .title(Component.translatable("eshare.messages.success"))
+                                .text(finalString)
                                 .build());
                     } else {
                         try {

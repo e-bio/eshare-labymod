@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.TranslatableComponent;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget.ButtonSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
@@ -68,7 +69,9 @@ public class EShareConfig extends AddonConfig {
             .thenAccept((response) -> {
                 boolean successful = response.statusCode() >= 200 && response.statusCode() <= 299;
                 if (successful) {
-                    String used = "NaN", max = "NaN", finalString;
+                    String used = "NaN";
+                    String max = "NaN";
+                    TranslatableComponent finalString;
                     try {
                         JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
@@ -78,25 +81,25 @@ public class EShareConfig extends AddonConfig {
                         e.printStackTrace();
                     }
 
-                    finalString = "You have used " + used + " of " + max + " uploads.";
+                    finalString = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
 
                     Laby.references().notificationController().push(
                         Notification.builder()
-                            .title(Component.text("Success!"))
-                            .text(Component.text(finalString))
+                            .title(Component.translatable("eshare.messages.success"))
+                            .text(finalString)
                             .build());
                 } else {
                     Laby.references().notificationController().push(
                         Notification.builder()
-                            .title(Component.text("Error!"))
-                            .text(Component.text("Something went wrong. Contact help@ebio.gg"))
+                            .title(Component.translatable("eshare.messages.error"))
+                            .text(Component.translatable("eshare.messages.error_description"))
                             .build());
                 }
             })
             .exceptionally((e) -> {
                 Laby.references().notificationController().push(
                     Notification.builder()
-                        .title(Component.text("Error!"))
+                        .title(Component.translatable("eshare.messages.error"))
                         .text(Component.text(e.getMessage()))
                         .build());
                 return null;

@@ -72,10 +72,10 @@ public class UploadRequest {
 
                             error = object.has("message")
                                 ? object.get("message").getAsString()
-                                : I18n.translate("eshare.upload.emptyError");
+                                : I18n.translate("eshare.errors.empty");
                         } catch (Exception e) {
                             e.printStackTrace();
-                            error = I18n.translate("eshare.upload.emptyError");
+                            error = I18n.translate("eshare.errors.empty");
                         }
                     }
                     future.complete(null);

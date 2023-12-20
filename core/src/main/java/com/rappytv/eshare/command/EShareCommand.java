@@ -27,23 +27,23 @@ public class EShareCommand extends Command {
     @Override
     public boolean execute(String prefix, String[] args) {
         if(addon.configuration().token().isBlank()) {
-            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.noToken", NamedTextColor.RED)));
+            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.errors.noToken", NamedTextColor.RED)));
             return true;
         }
         if(args.length < 1) {
-            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.file", NamedTextColor.RED)));
+            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.errors.file", NamedTextColor.RED)));
             return true;
         }
         File file = new File(System.getProperty("user.dir") + "/screenshots/" + args[0]);
         if(!file.exists()) {
-            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.messages.file", NamedTextColor.RED)));
+            displayMessage(EShareAddon.prefix.copy().append(Component.translatable("eshare.errors.file", NamedTextColor.RED)));
             return true;
         }
         if(uploads.contains(file.getName()) && addon.configuration().doubleUploads()) {
             if(args.length < 2 || !args[1].equalsIgnoreCase("force")) {
                 displayMessage(EShareAddon.prefix.copy().append(
                     Component.translatable(
-                        "eshare.messages.alreadyUploaded",
+                        "eshare.errors.alreadyUploaded",
                         NamedTextColor.RED,
                         Component.translatable(
                             "eshare.messages.uploadAnyway",
@@ -86,7 +86,7 @@ public class EShareCommand extends Command {
                         .clickEvent(ClickEvent.openUrl(request.getUploadLink()))
                 );
                 Component component = Component.translatable(
-                    "eshare.upload.uploaded",
+                    "eshare.messages.uploaded",
                     !request.getUploadLink().isBlank() ? copy : Component.text(""),
                     !request.getUploadLink().isBlank() ? open : Component.text("")
                 ).color(NamedTextColor.GRAY);

@@ -40,7 +40,7 @@
             "upload": "Click here to upload the screenshot to e.share!",
             "uploading": "Uploading screenshot...",
             "usage": "Your upload usage",
-            "status": "You have used %s out of %s uploads.",
+            "status": "You have used %s out of %s uploads for today.",
             "uploaded": "Screenshot uploaded! %s %s"
         },
         "upload": {

@@ -48,24 +48,24 @@ public class UploadRequest {
                     if(successful) {
                         String used = "NaN";
                         String max = "NaN";
-                        TranslatableComponent finalString;
+
                         try {
                             JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
                             uploadLink = object.has("url") ? object.get("url").getAsString() : "";
-                            used = object.has("used") ? object.get("used").getAsString() : "";
-                            max = object.has("max") ? object.get("max").getAsString() : "";
+                            if(object.has("used")) used = object.get("used").getAsString();
+                            if(object.has("max")) max = object.get("max").getAsString();
                         } catch (Exception e) {
                             e.printStackTrace();
                             uploadLink = "";
                         }
-
-                        finalString = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
+                        Component usage = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
                         Laby.references().notificationController().push(
                             Notification.builder()
-                                .title(Component.translatable("eshare.messages.success"))
-                                .text(finalString)
-                                .build());
+                                .title(Component.translatable("eshare.messages.usage"))
+                                .text(usage)
+                                .build()
+                        );
                     } else {
                         try {
                             JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();

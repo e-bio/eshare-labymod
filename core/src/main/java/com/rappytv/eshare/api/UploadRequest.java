@@ -2,9 +2,8 @@ package com.rappytv.eshare.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.labymod.api.Laby;
+import com.rappytv.eshare.EShareAddon;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.notification.Notification;
 import net.labymod.api.util.I18n;
 import java.io.File;
 import java.net.URI;
@@ -59,11 +58,9 @@ public class UploadRequest {
                             uploadLink = "";
                         }
                         Component usage = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
-                        Laby.references().notificationController().push(
-                            Notification.builder()
-                                .title(Component.translatable("eshare.messages.usage"))
-                                .text(usage)
-                                .build()
+                        EShareAddon.notification(
+                            Component.translatable("eshare.messages.usage"),
+                            usage
                         );
                     } else {
                         try {

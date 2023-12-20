@@ -13,7 +13,6 @@ import net.labymod.api.configuration.loader.annotation.SpriteTexture;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.Setting;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
-import net.labymod.api.notification.Notification;
 import net.labymod.api.util.I18n;
 import net.labymod.api.util.MethodOrder;
 import java.net.URI;
@@ -87,11 +86,9 @@ public class EShareConfig extends AddonConfig {
                     }
                     Component usage = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
 
-                    Laby.references().notificationController().push(
-                        Notification.builder()
-                            .title(Component.translatable("eshare.messages.usage"))
-                            .text(usage)
-                            .build()
+                    EShareAddon.notification(
+                        Component.translatable("eshare.messages.usage"),
+                        usage
                     );
                 } else {
                     String error = I18n.translate("eshare.errors.empty");
@@ -103,20 +100,17 @@ public class EShareConfig extends AddonConfig {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Laby.references().notificationController().push(
-                        Notification.builder()
-                            .title(Component.translatable("eshare.errors.title"))
-                            .text(Component.text(error))
-                            .build()
+                    EShareAddon.notification(
+                        Component.translatable("eshare.errors.title"),
+                        Component.text(error)
                     );
                 }
             })
             .exceptionally((e) -> {
-                Laby.references().notificationController().push(
-                    Notification.builder()
-                        .title(Component.translatable("eshare.errors.title"))
-                        .text(Component.text(e.getMessage()))
-                        .build());
+                EShareAddon.notification(
+                    Component.translatable("eshare.errors.title"),
+                    Component.text(e.getMessage())
+                );
                 return null;
             });
     }

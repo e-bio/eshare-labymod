@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TranslatableComponent;
 import net.labymod.api.notification.Notification;
 import net.labymod.api.util.I18n;
 import java.io.File;

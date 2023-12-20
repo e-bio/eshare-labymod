@@ -32,12 +32,14 @@ public class EShareConfig extends AddonConfig {
     @SpriteSlot(size = 32)
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+    @SpriteSlot(size = 32, x = 1)
     @SwitchSetting
     private final ConfigProperty<Boolean> doubleUploads = new ConfigProperty<>(true);
 
 
     @SettingSection("token")
     @MethodOrder(after = "doubleUploads")
+    @SpriteSlot(size = 32, x = 2)
     @ButtonSetting
     public void openRegisterPage(Setting setting) {
         new Timer().schedule(
@@ -51,12 +53,13 @@ public class EShareConfig extends AddonConfig {
     }
 
     @MethodOrder(after = "openRegisterPage")
-    @SpriteSlot(size = 32, x = 1)
+    @SpriteSlot(size = 32, x = 3)
     @TextFieldSetting
     private final ConfigProperty<String> token = new ConfigProperty<>("");
 
     @SettingSection("check")
     @MethodOrder(after = "token")
+    @SpriteSlot(size = 32, y = 1)
     @ButtonSetting
     public void checkAccount(Setting setting) throws URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder()

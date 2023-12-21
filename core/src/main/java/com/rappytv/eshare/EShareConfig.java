@@ -5,7 +5,6 @@ import com.google.gson.JsonParser;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TranslatableComponent;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget.ButtonSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
@@ -14,14 +13,16 @@ import net.labymod.api.configuration.loader.annotation.SpriteTexture;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.Setting;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
-import net.labymod.api.notification.Notification;
-import net.labymod.api.notification.NotificationController;
+import net.labymod.api.util.I18n;
 import net.labymod.api.util.MethodOrder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SpriteTexture("settings")
 public class EShareConfig extends AddonConfig {
@@ -30,16 +31,18 @@ public class EShareConfig extends AddonConfig {
     @SpriteSlot(size = 32)
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+    @SpriteSlot(size = 32, x = 1)
     @SwitchSetting
     private final ConfigProperty<Boolean> doubleUploads = new ConfigProperty<>(true);
 
 
     @SettingSection("token")
     @MethodOrder(after = "doubleUploads")
-    @ButtonSetting()
+    @SpriteSlot(size = 32, x = 2)
+    @ButtonSetting
     public void openRegisterPage(Setting setting) {
-        new java.util.Timer().schedule(
-            new java.util.TimerTask() {
+        new Timer().schedule(
+            new TimerTask() {
                 @Override
                 public void run() {
                     Laby.labyAPI().minecraft().chatExecutor()
@@ -49,18 +52,19 @@ public class EShareConfig extends AddonConfig {
     }
 
     @MethodOrder(after = "openRegisterPage")
-    @SpriteSlot(size = 32, x = 1)
+    @SpriteSlot(size = 32, x = 3)
     @TextFieldSetting
     private final ConfigProperty<String> token = new ConfigProperty<>("");
 
-    @MethodOrder(after = "token")
     @SettingSection("check")
-    @ButtonSetting()
+    @MethodOrder(after = "token")
+    @SpriteSlot(size = 32, y = 1)
+    @ButtonSetting
     public void checkAccount(Setting setting) throws URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(new URI("https://api.ebio.gg/api/share/status"))
             .header("api-key", token.get())
-            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .method("GET", BodyPublishers.noBody())
             .build();
 
         HttpClient client = HttpClient.newHttpClient();
@@ -71,37 +75,42 @@ public class EShareConfig extends AddonConfig {
                 if (successful) {
                     String used = "NaN";
                     String max = "NaN";
-                    TranslatableComponent finalString;
+                    
                     try {
                         JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
-                        used = object.has("used") ? object.get("used").getAsString() : "";
-                        max = object.has("max") ? object.get("max").getAsString() : "";
+                        if(object.has("used")) used = object.get("used").getAsString();
+                        if(object.has("max")) max = object.get("max").getAsString();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Component usage = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
 
-                    finalString = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
-
-                    Laby.references().notificationController().push(
-                        Notification.builder()
-                            .title(Component.translatable("eshare.messages.success"))
-                            .text(finalString)
-                            .build());
+                    EShareAddon.notification(
+                        Component.translatable("eshare.messages.usage"),
+                        usage
+                    );
                 } else {
-                    Laby.references().notificationController().push(
-                        Notification.builder()
-                            .title(Component.translatable("eshare.messages.error"))
-                            .text(Component.translatable("eshare.messages.error_description"))
-                            .build());
+                    String error = I18n.translate("eshare.errors.empty");
+
+                    try {
+                        JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
+
+                        if(object.has("error")) error = object.get("error").getAsString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    EShareAddon.notification(
+                        Component.translatable("eshare.errors.title"),
+                        Component.text(error)
+                    );
                 }
             })
             .exceptionally((e) -> {
-                Laby.references().notificationController().push(
-                    Notification.builder()
-                        .title(Component.translatable("eshare.messages.error"))
-                        .text(Component.text(e.getMessage()))
-                        .build());
+                EShareAddon.notification(
+                    Component.translatable("eshare.errors.title"),
+                    Component.text(e.getMessage())
+                );
                 return null;
             });
     }

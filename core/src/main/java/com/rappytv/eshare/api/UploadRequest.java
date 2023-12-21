@@ -2,10 +2,8 @@ package com.rappytv.eshare.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.labymod.api.Laby;
+import com.rappytv.eshare.EShareAddon;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TranslatableComponent;
-import net.labymod.api.notification.Notification;
 import net.labymod.api.util.I18n;
 import java.io.File;
 import java.net.URI;
@@ -48,34 +46,32 @@ public class UploadRequest {
                     if(successful) {
                         String used = "NaN";
                         String max = "NaN";
-                        TranslatableComponent finalString;
+
                         try {
                             JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
                             uploadLink = object.has("url") ? object.get("url").getAsString() : "";
-                            used = object.has("used") ? object.get("used").getAsString() : "";
-                            max = object.has("max") ? object.get("max").getAsString() : "";
+                            if(object.has("used")) used = object.get("used").getAsString();
+                            if(object.has("max")) max = object.get("max").getAsString();
                         } catch (Exception e) {
                             e.printStackTrace();
                             uploadLink = "";
                         }
-
-                        finalString = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
-                        Laby.references().notificationController().push(
-                            Notification.builder()
-                                .title(Component.translatable("eshare.messages.success"))
-                                .text(finalString)
-                                .build());
+                        Component usage = Component.translatable("eshare.messages.status", Component.text(used), Component.text(max));
+                        EShareAddon.notification(
+                            Component.translatable("eshare.messages.usage"),
+                            usage
+                        );
                     } else {
                         try {
                             JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
                             error = object.has("message")
                                 ? object.get("message").getAsString()
-                                : I18n.translate("eshare.upload.emptyError");
+                                : I18n.translate("eshare.errors.empty");
                         } catch (Exception e) {
                             e.printStackTrace();
-                            error = I18n.translate("eshare.upload.emptyError");
+                            error = I18n.translate("eshare.errors.empty");
                         }
                     }
                     future.complete(null);

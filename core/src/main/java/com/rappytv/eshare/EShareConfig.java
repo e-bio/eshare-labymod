@@ -56,7 +56,6 @@ public class EShareConfig extends AddonConfig {
     @TextFieldSetting
     private final ConfigProperty<String> token = new ConfigProperty<>("");
 
-    @SettingSection("check")
     @MethodOrder(after = "token")
     @SpriteSlot(size = 32, y = 1)
     @ButtonSetting

@@ -1,5 +1,5 @@
 # e.share Uploader
-![Strings reviewed status](https://translate.ebio.gg/62808dce-9794-4201-8ef8-120168f73e76/percentage_reviewed_badge.svg)
+![Strings reviewed status](https://translate.ebio.gg/6b8bf2d1-eac7-4160-9e85-fc8874783636/percentage_reviewed_badge.svg)
 
 ### 📦 Installation
 1. Press `Win` + `R`

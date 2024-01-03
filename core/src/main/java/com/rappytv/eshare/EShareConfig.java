@@ -95,7 +95,7 @@ public class EShareConfig extends AddonConfig {
                     try {
                         JsonObject object = JsonParser.parseString(response.body()).getAsJsonObject();
 
-                        if(object.has("error")) error = object.get("error").getAsString();
+                        if(object.has("message")) error = object.get("message").getAsString();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

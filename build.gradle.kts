@@ -17,7 +17,7 @@ labyMod {
         author = "RappyTV (e.bio)"
         description = "Upload your screenshots directly to e.share"
         minecraftVersion = "*"
-        version = System.getenv().getOrDefault("VERSION", "1.0.0")
+        version = System.getenv().getOrDefault("VERSION", "1.0.1")
     }
 
     minecraft {
